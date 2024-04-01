@@ -45,4 +45,14 @@
 		WHERE NOTICE_NO = ? 
 			AND N.STATUS = 'Y'
 	</entry>
+	<entry key="updateNotice">
+		UPDATE NOTICE
+		SET NOTICE_TITLE = ?
+		   ,NOTICE_CONTENT = ?
+		WHERE NOTICE_NO = ?
+	</entry><entry key="deleteNotice">
+		UPDATE NOTICE
+		SET STATUS = 'N'
+		WHERE NOTICE_NO = ?
+	</entry>
 </properties>

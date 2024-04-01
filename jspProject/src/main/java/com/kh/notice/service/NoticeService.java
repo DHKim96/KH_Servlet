@@ -52,4 +52,45 @@ public class NoticeService {
 		
 		return n;
 	}
+
+	public int updateNotice(Notice no) {
+		Connection conn = getConnection();
+		
+		int result = new NoticeDao().updateNotice(conn, no);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public Notice selectNotice(int noticeNo) {
+		Connection conn = getConnection();
+		
+		Notice n = new NoticeDao().selectNotice(conn, noticeNo);
+	
+		close(conn);
+		
+		return n;
+	}
+
+	public int deleteNotice(int noticeNo) {
+		Connection conn = getConnection();
+		
+		int result = new NoticeDao().deleteNotice(conn, noticeNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
 }

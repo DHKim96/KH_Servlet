@@ -61,7 +61,6 @@ public class MemberInsertController extends HttpServlet {
 		if (result > 0) { //회원가입 성공
 			HttpSession session = request.getSession();
 			session.setAttribute("alertMsg", "성공적으로 회원가입이 되었습니다.");
-			
 			// jsp url 재요청 => index페이지로
 			response.sendRedirect(request.getContextPath());
 		} else { //회원가입 실패
