@@ -44,7 +44,7 @@ public class BoardUpdateController extends HttpServlet {
 			// 3) 전달된 파일명 수정 후 서버에 업로드
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());;
 			// 4) sql 문 실행에 필요한 값 추출해서 vo에 저장
-			int boardNo = Integer.parseInt(multiRequest.getParameter("num"));
+			int boardNo = Integer.parseInt(multiRequest.getParameter("bno"));
 			String category = multiRequest.getParameter("category");
 			String boardTitle = multiRequest.getParameter("title");
 			String boardContent = multiRequest.getParameter("content");

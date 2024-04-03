@@ -50,7 +50,7 @@ public class MemberService {
 		return updateMem;
 	}
 
-	public Member updatePwd(String userId, String userPwd, String updatePwd) {
+	public Member updatePwdMember(String userId, String userPwd, String updatePwd) {
 		Connection conn = getConnection();
 		int result = new MemberDao().updatePwdMember(conn, userId, userPwd, updatePwd);
 

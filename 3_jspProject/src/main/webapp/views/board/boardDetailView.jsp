@@ -48,7 +48,7 @@
                     <th width="70px">카테고리</th>
                     <td width="70px"><%=b.getCategory()%></td>
                     <th width="70px">제목</th>
-                    <td colspan="3" width="350px"><%=b.getBoardTitle()%></td>
+                    <td width="350px"><%=b.getBoardTitle()%></td>
                 </tr>
                 <tr>
                     <th>작성자</th>
@@ -70,25 +70,21 @@
                         	첨부파일이 없습니다.
                         <%} else { %>
                        		<!--case 2 : 첨부파일 있을 때-->
-                        	<a download="<%=at.getOriginName()%>" href="<%=contextPath%><%=at.getFilePath() + at.getChangeName()%>"><%=at.getOriginName()%></a>
+                        	<a download="<%=at.getOriginName()%>" href="<%=contextPath%>/<%=at.getFilePath() + at.getChangeName()%>"><%=at.getOriginName()%></a>
                         <%} %>
                     </td>
                 </tr>
             </table>
             <br><br>
-             <% if(loginUser != null && loginUser.getUserId().equals(b.getBoardWriter())) { %>
-            <!-- 현재 로그인한 유저가 해당 게시글의 작성자일 때만 수정/삭제 가능하도록 제한-->
-	            <div align="center">
-	                <a href="<%=contextPath %>/list.bo?cpage=1" class="btn btn-sm btn-secondary">목록가기</a>
-	                <a href="<%=contextPath %>/updateForm.bo?num=<%=b.getBoardNo() %>" class="btn btn-sm btn-warning">수정</a>
-	                <a href="<%=contextPath %>/delete.bo?num=<%=b.getBoardNo() %>" class="btn btn-sm btn-danger">삭제</a>
-	            </div>
-            <% } else { %>
-            	<div align="center">
-	                <a href="<%=contextPath %>/list.bo?cpage=1" class="btn btn-sm btn-secondary">목록가기</a>
-	                <!-- url 을 치고 들어올 경우 history.back 사용하면 잘못된 곳으로 돌아갈 수 있기에 유의-->
-	            </div>
-            <% } %>
+            <div align="center">
+		           <a href="<%=contextPath %>/list.bo?cpage=1" class="btn btn-sm btn-secondary">목록가기</a>
+		            <% if(loginUser != null && loginUser.getUserId().equals(b.getBoardWriter())) { %>
+		           <!-- 현재 로그인한 유저가 해당 게시글의 작성자일 때만 수정/삭제 가능하도록 제한-->
+		                <a href="<%=contextPath %>/updateForm.bo?bno=<%=b.getBoardNo() %>" class="btn btn-sm btn-warning">수정</a>
+		                <a href="<%=contextPath %>/delete.bo?bno=<%=b.getBoardNo() %>" class="btn btn-sm btn-danger">삭제</a>
+		                <!-- url 을 치고 들어올 경우 history.back 사용하면 잘못된 곳으로 돌아갈 수 있기에 유의-->
+		           <% } %>
+            </div>
         </div>
 </body>
 

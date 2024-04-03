@@ -34,7 +34,7 @@ public class BoardUpdateFormController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardService bServ = new BoardService();
 		
-		int boardNo = Integer.parseInt(request.getParameter("num"));
+		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		
 		Board b = bServ.selectBoard(boardNo);
 		

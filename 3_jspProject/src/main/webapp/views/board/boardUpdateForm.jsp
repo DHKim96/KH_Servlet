@@ -47,7 +47,7 @@
         <h2 align="center">일반게시판 수정하기</h2>
         <br>
 
-        <form id="update-form" action="<%=contextPath%>/update.bo" method="post" enctype="multipart/form-data">
+        <form id="update-form" action="<%=contextPath %>/update.bo" method="post" enctype="multipart/form-data">
             <input type="hidden" name="bno" value="<%=b.getBoardNo()%>">
             <table>
                 <tr>
@@ -61,8 +61,10 @@
                         </select>
                         <script>
                             //카테고리 셀렉트 박스의 옵션들을 모두 가져온 뒤 내가 선택한 옵션이 무엇인지 선별
-                            const options = document.querySelectorAll("#update-from option");
+                            const options = document.querySelectorAll("#update-form option");
+                            console.log(options)
                             for (let opt of options){
+                            	console.log(opt.innerText === "<%=b.getCategory()%>")
                                 if(opt.innerText === "<%=b.getCategory()%>"){
                                     opt.selected = true;
                                 }
@@ -77,9 +79,7 @@
                 <tr>
                     <th>내용</th>
                     <td>
-                    	<textarea name="content" rows="10" style="resize: none;" required>
-                    		<%=b.getBoardContent()%>
-                    	</textarea>
+                    	<textarea name="content" rows="10" style="resize: none;" required><%=b.getBoardContent()%></textarea>
                     </td>
                 </tr>
                 <tr>

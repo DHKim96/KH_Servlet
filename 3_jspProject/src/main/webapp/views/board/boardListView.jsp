@@ -121,7 +121,7 @@
             $(function(){
                 $(".list-area > tbody > tr").click(function(){
                    const boardNo = $(this).children().eq(0).text();
-                    location.href ="<%=contextPath%>/detail.bo?num=" + boardNo; // url ? 키 밸류,... 형식이기에
+                    location.href ="<%=contextPath%>/detail.bo?bno=" + boardNo; // url ? 키 밸류,... 형식이기에
                 })
             })
         </script>

@@ -30,7 +30,7 @@ public class BoardDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int boardNo = Integer.parseInt(request.getParameter("num"));
+		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		
 		BoardService bService = new BoardService();
 		// 조회수 1 증가 + board 객체 조회
