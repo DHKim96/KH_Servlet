@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.ArrayList, com.kh.board.model.vo.Board" %>
+<%@ page import="java.util.ArrayList, com.kh.board.model.vo.Board, com.kh.common.vo.PageInfo" %>
 <%
-    ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+    PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int maxPage = pi.getMaxPage();
+	int endPage = pi.getEndPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -42,7 +48,7 @@
             <% if(loginUser != null) { %>
                 <!-- 로그인한 사용자에게만 보이도록 -->
                 <div align="right" style="width: 850px; margin-bottom: 4px;">
-                    <a href="<%=contextPath %>/" class="btn btn-sm btn-secondary">글쓰기</a>
+                    <a href="<%=contextPath%>/enrollForm.bo" class="btn btn-sm btn-secondary">글쓰기</a>
                 </div>
             <% } %>
             <table class="list-area" align="center">
@@ -58,7 +64,7 @@
                     <% if(list.isEmpty()) { %>
                         <!--게시글이 없을 경우 -->
                         <tr>
-                            <td colspan="5">게시글이 없습니다.</td>
+                            <td colspan="6">게시글이 없습니다.</td>
                         </tr>
                     <% } else { %>
                         <!-- 있으면 반복문으로 list 꺼내면 됨 -->
@@ -75,12 +81,33 @@
                     <% } %>
                 </tbody>
             </table>
+           
+           <br><br>
+           
+           <div class="paging-area" align="center">
+           		<%if(currentPage != 1){%>
+           			<button onclick="location.href='<%=contextPath%>/list.bo?cpage=<%=currentPage - 1 %>'">&lt;</button>
+           		<%} %>
+           		<%for(int p = startPage; p <= endPage; p++){ %>
+           			<%if(p == currentPage) {%>
+           				<button disabled><%=p %></button>
+           			<%} else { %>
+           				<button onclick="location.href='<%=contextPath%>/list.bo?cpage=<%=p %>'"><%=p %></button>
+           			<%} %>
+           		<%} %>
+           		<%if(currentPage != maxPage){%>
+           			<button onclick="location.href='<%=contextPath%>/list.bo?cpage=<%=currentPage + 1 %>'">&gt;</button>
+           		<%} %>
+           </div>
+           
         </div>
         <script>
+        
             // const trList = document.querySelectorAll(".list-area > tbody > tr")
             // //[tr, tr]
             // for(const tr of trList){
             //     tr.onclick = function(){
+            //		또는 this 사용
             //         // const boardNo = this.childNodes[1]; // td들을 배열로 가져옴. 텍스트 노드까지 가져오기 때문에 공백도 가져와짐
             //         // const boardNo = this.childNodes[1].innerText;
             //         const boardNo = this.children[0].innerText;

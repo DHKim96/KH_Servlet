@@ -1,6 +1,7 @@
 package com.kh.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.board.model.vo.Board;
+import com.kh.board.model.vo.Category;
 import com.kh.board.service.BoardService;
 import com.kh.common.vo.Attachment;
 
 /**
- * Servlet implementation class BoardDetailController
+ * Servlet implementation class BoardUpdateFormController
  */
-@WebServlet("/detail.bo")
-public class BoardDetailController extends HttpServlet {
+@WebServlet("/updateForm.bo")
+public class BoardUpdateFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardDetailController() {
+    public BoardUpdateFormController() {
         super();
     }
 
@@ -30,23 +32,21 @@ public class BoardDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		BoardService bServ = new BoardService();
+		
 		int boardNo = Integer.parseInt(request.getParameter("num"));
 		
-		BoardService bService = new BoardService();
-		// 조회수 1 증가 + board 객체 조회
-		Board b = new BoardService().increaseCount(boardNo);
+		Board b = bServ.selectBoard(boardNo);
 		
-		if (b != null) {//성공 -> 조회 가능한 공지사항 존재
-			Attachment at = bService.selectAttachment(boardNo);
+		ArrayList<Category> categories = bServ.selectCategoryList();
 		
-			request.setAttribute("board", b);
-			request.setAttribute("attachment", at);
-			
-			request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
-		} else { // 실패 -> 
-			request.setAttribute("errorMsg", "공지사항 조회 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		Attachment at = bServ.selectAttachment(boardNo);
+		
+		request.setAttribute("board", b);
+		request.setAttribute("categories", categories);
+		request.setAttribute("attachment", at);
+		
+		request.getRequestDispatcher("views/board/boardUpdateForm.jsp").forward(request, response);
 	}
 
 	/**
