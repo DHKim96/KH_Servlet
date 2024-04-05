@@ -35,8 +35,8 @@
         <br>
         <h2 align="center">사진게시판 작성하기</h2>
         <br>
-
-        <form action="" id="enroll-form">
+        <form action="<%=contextPath %>/insert.th" id="enroll-form" method="POST" enctype="multipart/form-data">
+        	<input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
             <table align="center">
                 <tr>
                     <th width="100">제목</th>

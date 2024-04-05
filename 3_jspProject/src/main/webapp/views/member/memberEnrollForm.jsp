@@ -31,7 +31,7 @@
                 <tr>
                     <td>* 아이디</td>
                     <td><input type="text" name="userId" maxlength="12" required></td>
-                    <td><button type="button">중복확인</button></td>
+                    <td><button type="button" onclick="idCheck();">중복확인</button></td>
                 </tr>
                 <tr>
                     <td>* 비밀번호</td>
@@ -65,7 +65,7 @@
                 </tr>
                 <tr>
                     <td>관심분야</td>
-                    <td colspan="2">
+                    <td colspan="2">w
                         <input type="checkbox" name="interest" id="sports" value="운동">
                         <label for="sports">운동</label>
                         <input type="checkbox" name="interest" id="climbing" value="등산">
@@ -103,6 +103,63 @@
                 alert("비밀번호가 일치하지 않습니다.")
                 return false;
             }
+        }
+
+        function idCheck(){
+        	//중복확인 버튼 클릭시 사용자가 입력한 아이디값을 서버에 보내서 조회요청(존재하는 아이디인가?) => 응답받기
+            //1) 사용불가야 => alert메세지 출력(사용할 수 없는 아이디입니다.), 다시입력
+            //2) 사용가능이야 => 진짜 사용할것인지?
+            //                              ok => 더이상 아이디 수정 못하게끔, 회원가입 버튼 활성
+            //                              no => 다시입력하도록 유도
+
+            const idInput = document.querySelector("#enroll-form input[name=userId]");
+            console.log(idInput.value)
+
+            //idInput.value값을 서버에 보내야한다. ajax사용
+            
+            // $.ajax()
+            /**
+             * $.ajax({
+             *      type : 전송타입 GET | POST,
+             *      url : 어디로 요청을 보낼지 
+             *      data : {key : value} -> 어떤데이터를 포함해서 보낼지
+             *      success : function(){} -> 성공시 실행해줄 함수
+             *      error : function(){} -> 실패시 실행해줄 함수
+             * })
+             * 
+             * */
+             
+             console.log("ajax 출발")
+            
+            $.ajax({
+                type : "GET",
+                url: "idCheck.me",
+                data: {
+                    checkId : idInput.value
+                },
+                success: function(res){
+                    if(res === "NNNNY"){
+                        if(confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")){
+                            // 더 이상 아이디 수정 못하게 막고, 
+                            idInput.setAttribute("readonly", true)
+                            // 회원가입 버튼 활성
+                            const submitBtn = document.querySelector('enroll-form-button[type=submit]')
+                            submitBtn.removeAttribute("disabled");
+                        } else {
+                            // 아니요 응답 시 아이디 입력창 포커싱
+                            idInput.focus();
+                        }
+                    } else {
+                        alert("사용불가능한 아이디입니다.");
+                        idInput.focus();
+                    }
+                },
+                error: function(err){
+                    console.log("실패 : ", err)
+                }
+            })
+
+            console.log("ajax 이후코드")
         }
     </script>
 </body>
