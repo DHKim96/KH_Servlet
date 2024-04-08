@@ -354,7 +354,7 @@ public class BoardDao {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertThBoard");
+		String sql = prop.getProperty("insertThumbnailBoard");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);//미완성(4)
