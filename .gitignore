@@ -93,6 +93,9 @@ local.properties
 hs_err_pid*
 replay_pid*
 
+## Servers ##
+Servers/
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db

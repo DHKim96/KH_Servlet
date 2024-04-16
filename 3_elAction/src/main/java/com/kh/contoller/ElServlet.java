@@ -42,7 +42,7 @@ public class ElServlet extends HttpServlet {
 		 * 
 		 * 2. HttpSession(session Scope)
 		 * 	  한 브라우저당 1개 존재하는 객체
-		 * 	  이 여역에 데이터를 담으면 jsp/servlet 단에서 사용이 가능
+		 * 	  이 영역에 데이터를 담으면 jsp/servlet 단에서 사용이 가능
 		 * 
 		 * 3. HttpServletRequest
 		 *    요청때마다 매번 생성되는 객체
